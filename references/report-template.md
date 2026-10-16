@@ -6,7 +6,7 @@ Copy this structure. Fill every field. Keep evidence short; put long output in a
 # Prod check report: <app>
 
 - App: <name and repo or URL>
-- Tier: T0 Launch | T1 Paying | T2 Enterprise/regulated
+- Tier: T0 Public site | T1 Paying | T2 Enterprise/regulated
 - Gates on: <accounts, multi-tenant, payments, database, self-hosted servers, ...>
 - Gates off: <list>
 - Mode: quick | full (sections: <list or all>)
@@ -40,7 +40,7 @@ Copy this structure. Fill every field. Keep evidence short; put long output in a
 
 ## Column rules
 
-- Stage is `invoice`, `10`, `100` or `-`, copied from the check file. It says when the fix is due, not whether the row is in scope.
+- Stage is `launch`, `10`, `100` or `-`, copied from the check file. It says when the fix is due, not whether the row is in scope.
 - Status is one of PASS, FAIL, ATTESTED, UNKNOWN, N/A.
   - PASS: you verified an artifact or evidence yourself. If a live replay was needed and only code was read, write PASS and add "(code only)" to the evidence.
   - FAIL: the evidence shows it fails, or the owner admits the gap. A row with one FAIL sub-item is FAIL; note any UNKNOWN part in the evidence.

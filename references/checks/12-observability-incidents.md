@@ -4,12 +4,12 @@ Gate: none for the file. OBS-04 and OBS-14 are gated per row on AI/LLM.
 
 | ID | Tier | Stage | Check | How to verify | Evidence to record | Attest |
 |---|---|---|---|---|---|---|
-| OBS-01 | T0 | - | External uptime checks run from outside your hosting provider. | List monitors and their probe locations; confirm they alert someone. | Monitor list |  |
-| OBS-02 | T0 | invoice | Error tracking groups errors instead of one email per occurrence. | Find the tracker, its DSN in use, and grouping. | Config, sample issue |  |
-| OBS-03 | T0 | - | Cost alerts fire the same day on every cloud account and hosting provider. | List budgets and alerts with thresholds and recipients. | Alert list |  |
-| OBS-04 | T1 | invoice | (gate: AI/LLM) Every paid AI API key has a spend cap or alert. | List AI keys in use; check each has a spend limit or alert in the provider console. | Key-to-limit table |  |
+| OBS-01 | T0 | launch | External uptime checks run from outside your hosting provider. | List monitors and their probe locations; confirm they alert someone. | Monitor list |  |
+| OBS-02 | T0 | launch | Error tracking groups errors instead of one email per occurrence. | Find the tracker, its DSN in use, and grouping. | Config, sample issue |  |
+| OBS-03 | T0 | launch | Cost alerts fire the same day on every cloud account and hosting provider, plus a hard spend cap where the provider offers one. | List budgets and alerts with thresholds and recipients. | Alert list |  |
+| OBS-04 | T1 | launch | (gate: AI/LLM) Every paid AI API key has a spend cap or alert. | List AI keys in use; check each has a spend limit or alert in the provider console. | Key-to-limit table |  |
 | OBS-05 | T1 | 10 | Logs are structured and searchable, record who did what, and exclude passwords, tokens and card numbers. | Sample logs; grep for secrets and tokens; check actor fields. | Log sample, grep output |  |
-| OBS-06 | T1 | 10 | Alerts reach a human and are tuned until they stop firing for nothing. | List alert routes; read the last 30 days of firings. | Alert routes, firing counts |  |
+| OBS-06 | T1 | 10 | Alerts reach a human, with fewer than 3 non-actionable firings in 30 days. | List alert routes; read the last 30 days of firings. | Alert routes, firing counts |  |
 | OBS-07 | T2 | - | Dashboards show latency, error rate and throughput. | Open the dashboards and confirm those three exist. | Dashboard link or screenshot |  |
 | OBS-08 | T2 | - | Tracing follows a single slow request across services. | Find the trace instrumentation and find one trace. | Trace ID or sample |  |
 | OBS-09 | T1 | 10 | Alerts reach a phone: a test alert pages a person outside working hours. | Ask who gets paged; fire a test alert and confirm it reaches a phone. | Alert route, test page record | attest |

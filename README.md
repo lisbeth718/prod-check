@@ -2,9 +2,9 @@
 
 Find the bugs that end startups before your first customer finds them: leaked keys, other users' data, fake payments, no restorable backup.
 
-Run `/prod-check` in your repo. In about 30 minutes your agent checks 59 killers with evidence (file:line, command output) and hands you the top 5 fixes.
+Run `/prod-check` in your repo. In about 30 minutes your agent checks up to 68 high-risk items with evidence (file:line, command output); anything it cannot reach is reported UNKNOWN. It then hands you the top 5 fixes.
 
-Read-only. Built for agent-written apps: catches pasted keys, packages that don't exist, IDOR in server actions, Supabase tables open to the browser, and webhooks nobody verifies.
+Read-only in production; replays write only to a test environment you provide; test alerts and messages are sent only with your OK. Built for agent-written apps: catches pasted keys, packages that don't exist, IDOR in server actions, Supabase tables open to the browser, and webhooks nobody verifies.
 
 Going enterprise later? `full` covers all checks up to SSO, SOC 2 and DPAs. You don't need those yet.
 
@@ -27,8 +27,8 @@ Humans: work through `CHECKLIST.md`. Each line has an ID, a tier and a gate. `re
 ## Usage
 
 ```
-/prod-check                      quick audit (default), 59 checks
-/prod-check full                 every check in scope, 180 checks
+/prod-check                      quick audit (default), 68 checks
+/prod-check full                 every check in scope, 187 checks
 /prod-check quick auth billing   only those sections
 /prod-check full 05-database-data-model
 ```
@@ -43,7 +43,7 @@ Fixes are proposed after the report and applied only when you say go.
 A weekend landing page and a multi-tenant billing app do not need the same checks.
 Each check has a tier, and some sections are gated on a feature.
 
-- T0 Launch: public, no accounts, no payments, no customer data.
+- T0 Public site: no accounts, no payments, no customer data.
 - T1 Paying: any of: accounts, customer data, payments.
 - T2 Enterprise/regulated: SSO, questionnaires, contract terms, or regulated data (health, financial account, legal, member, union or political data). Ordinary PII such as CVs and emails stays T1.
 - A (advisory): reported as notes, never a FAIL.
@@ -58,8 +58,9 @@ The auditor asks you once. An artifact it can verify is PASS, your word alone is
 
 ### Stages
 
-Every T1 check has a stage: `invoice` (fix before your first invoice), `10` (before 10 customers) or `100` (before 100 customers).
-Quick mode is the high-risk T0 checks plus every `invoice` check; stages tell you what to fix first, not what is in scope.
+T0 and T1 rows carry a stage; T2 and advisory rows use `-`. Stages: `launch` (before the first real user outside the team or the first invoice, whichever comes first), `10` (before 10 customers) or `100` (before 100 customers). All T0 rows are `launch`.
+Quick mode is the high-risk T0 rows already in the quick list plus every T1 launch row; stages tell you what to fix first, not what is in scope.
+Missing IDs were retired and are not reused.
 
 ### Review
 
