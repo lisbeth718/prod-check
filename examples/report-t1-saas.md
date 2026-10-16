@@ -1,4 +1,4 @@
-# Ship check report: Lumen Invoicing
+# Prod check report: Lumen Invoicing
 
 Fictional sample. The app, people and numbers are invented. This is an excerpt: 29 rows. A real run lists every in-scope row.
 

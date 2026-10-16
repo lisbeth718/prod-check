@@ -3,7 +3,7 @@
 Copy this structure. Fill every field. Keep evidence short; put long output in an appendix.
 
 ```
-# Ship check report: <app>
+# Prod check report: <app>
 
 - App: <name and repo or URL>
 - Tier: T0 Launch | T1 Paying | T2 Enterprise/regulated

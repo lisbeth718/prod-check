@@ -1,4 +1,4 @@
-# Ship check: checklist
+# Prod check: checklist
 
 Every check in one flat list, for humans. Tier: T0 = Launch (public, no accounts, no payments, no customer data); T1 = Paying (any of: accounts, customer data, payments); T2 = Enterprise or regulated.
 Stage: `invoice` = before your first invoice, `10` = before 10 customers, `100` = before 100 customers; no stage means it applies as soon as its tier does. [A] = advisory: reported as a note, never a FAIL. Do everything at or below your tier. Skip a section when its gate (a feature you do not have) is off. `(attest)` means a person answers it; an auditor cannot verify it from code.

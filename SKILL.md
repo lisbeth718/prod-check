@@ -1,14 +1,14 @@
 ---
-name: ship-check
-description: Audits an app for production readiness against its tier and features; use for "production readiness review", "ship check", "is this ready for customers" or "pre-launch audit".
+name: prod-check
+description: Audits an app for production readiness against its tier and features; use for "production readiness review", "prod check", "is this ready for customers" or "pre-launch audit".
 ---
 
-# ship-check
+# prod-check
 
 Audit an app for production readiness against the tier and features it actually has.
 Every finding needs evidence. Never mark PASS from comments, intent, or what the code "should" do.
 
-Usage: `/ship-check [quick|full] [section...]`
+Usage: `/prod-check [quick|full] [section...]`
 Sections are check file names or these aliases (a name not listed matches a check file name):
 
 | Alias | Files | Alias | Files |

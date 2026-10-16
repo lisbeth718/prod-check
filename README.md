@@ -1,8 +1,8 @@
-# ship-check
+# prod-check
 
 Find the bugs that end startups before your first customer finds them: leaked keys, other users' data, fake payments, no restorable backup.
 
-Run `/ship-check` in your repo. In about 30 minutes your agent checks 59 killers with evidence (file:line, command output) and hands you the top 5 fixes.
+Run `/prod-check` in your repo. In about 30 minutes your agent checks 59 killers with evidence (file:line, command output) and hands you the top 5 fixes.
 
 Read-only. Built for agent-written apps: catches pasted keys, packages that don't exist, IDOR in server actions, Supabase tables open to the browser, and webhooks nobody verifies.
 
@@ -15,10 +15,10 @@ Based on a checklist by Mari Luukkainen.
 Claude Code:
 
 ```sh
-git clone https://github.com/lisbeth718/ship-check ~/.claude/skills/ship-check
+git clone https://github.com/lisbeth718/prod-check ~/.claude/skills/prod-check
 ```
 
-Then run `/ship-check` in your app's repo.
+Then run `/prod-check` in your app's repo.
 
 Other agents: give the agent the path to `SKILL.md` and tell it to follow it. It reads the files under `references/` as needed.
 
@@ -27,10 +27,10 @@ Humans: work through `CHECKLIST.md`. Each line has an ID, a tier and a gate. `re
 ## Usage
 
 ```
-/ship-check                      quick audit (default), 59 checks
-/ship-check full                 every check in scope, 180 checks
-/ship-check quick auth billing   only those sections
-/ship-check full 05-database-data-model
+/prod-check                      quick audit (default), 59 checks
+/prod-check full                 every check in scope, 180 checks
+/prod-check quick auth billing   only those sections
+/prod-check full 05-database-data-model
 ```
 
 Quick mode runs and reports only a short list of the highest-risk checks. See `references/quick-profile.md`.
