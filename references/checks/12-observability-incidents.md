@@ -14,4 +14,4 @@ Gate: none (always in scope up to the app tier)
 | OBS-08 | T2 | Tracing follows a single slow request across services. | Find the trace instrumentation and find one trace. | Trace ID or sample |  |
 | OBS-09 | T1 | Someone is on call and picks up; runbooks explain each alert and what to do. | Ask who is on call; read runbooks for the top alerts. | Rota, runbook links | attest |
 | OBS-10 | T1 | Postmortems follow incidents and each produces at least one concrete change. | Ask for the last two postmortems. | Postmortem links | attest |
-| OBS-11 | T1 | A public status page exists. | Find the status page URL and confirm it updates. | URL |  |
+| OBS-11 | T2 | A public status page exists. | Find the status page URL and confirm it updates. | URL |  |

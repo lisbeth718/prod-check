@@ -8,6 +8,7 @@ Gate: none (always in scope up to the app tier)
 | TEST-02 | T1 | Integration tests exist for every third-party API the app depends on. | List third-party APIs; map each to a test or contract fixture. | API-to-test table |  |
 | TEST-03 | T1 | End-to-end tests cover signup, login, checkout and every flow that makes money. | List E2E specs; run them. e.g. Playwright. | Spec list, run output |  |
 | TEST-04 | T1 | Each bug fix adds a regression test. | Sample recent bug-fix commits and look for a test in each. | Commit list |  |
-| TEST-05 | T1 | Load testing is done before launches or big email sends. | Ask for the last load test and its numbers. | Report or results |  |
+| TEST-05 | T1 | Load testing is done before launches or big email sends. | Find a load test script and a dated report with numbers (requests per second, p95 latency, error rate) in the repo or docs. No artifact means UNKNOWN, not PASS. | Report path, date, numbers |  |
 | TEST-06 | T1 | Test and staging data looks like production without being production data. | Compare staging data source; check for real personal data. | Data source, scan result |  |
-| TEST-07 | T1 | Tested on slow networks and old hardware or browsers your customers use. | Run throttled profile and the oldest supported browser. | Throttled run result |  |
+
+<!-- Retired IDs: TEST-07 (merged into UX-09). Numbers are not reused. -->

@@ -17,17 +17,17 @@ Each check has a tier, and some sections are gated on a feature.
 
 The auditor checks everything at or below your tier. Anything above is N/A, not FAIL.
 Gates are features you may not have: accounts, multi-tenant, payments, uploads, transactional email,
-background jobs, API or webhooks, AI, multiple locales, health data, card data. A gated-off section is N/A.
+background jobs, API or webhooks, AI, multiple locales, health data, card data, database, self-hosted servers. A gated-off section is N/A.
 
 Some things only a person can answer (on-call, postmortems, pen tests, who owns the domain).
-The auditor asks you once, records ATTESTED, and never counts it as PASS.
+The auditor asks you once. An artifact it can verify is PASS, your word alone is ATTESTED, and an admitted gap is FAIL.
 
 ## Install
 
 Claude Code:
 
 ```sh
-git clone https://github.com/<you>/ship-check ~/.claude/skills/ship-check
+git clone https://github.com/lisbeth718/ship-check ~/.claude/skills/ship-check
 ```
 
 Then run `/ship-check` in your app's repo.
@@ -39,14 +39,14 @@ Humans: work through `CHECKLIST.md`. Each line has an ID, a tier and a gate. `re
 ## Usage
 
 ```
-/ship-check                      quick audit (default), about 60 to 90 minutes of agent time
-/ship-check full                 every check in scope, about half a day
+/ship-check                      quick audit (default), roughly 30 checks
+/ship-check full                 every check in scope, ~160 checks
 /ship-check quick auth billing   only those sections
 /ship-check full 05-database-data-model
 ```
 
-Quick mode runs all T0 checks plus a short list of the highest-risk T1 checks. See `references/quick-profile.md`.
-For T1 and T2 apps a second agent that did not run the audit re-checks every FAIL and every authorization PASS.
+Quick mode runs and reports only a short list of the highest-risk checks. See `references/quick-profile.md`.
+For T1 and T2 apps a second agent that did not run the audit re-checks every FAIL plus every PASS in AUTH-*, AUTHZ-*, WEB-01 to WEB-03, BILL-01 and BILL-02. If no reviewer can be spawned, the report says "Reviewer: none" and lists those rows.
 Fixes are proposed after the report and applied only when you say go.
 
 ## What the report looks like

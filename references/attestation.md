@@ -1,6 +1,6 @@
 # Owner attestation
 
-Ask the owner these once, at the start. Answers are recorded as ATTESTED with "owner says: ..." as evidence. ATTESTED is never PASS: nobody verified it.
+Ask the owner these once, at the start. Ask, then look for an artifact (document, log). Artifact you verified: PASS. Owner's word only: ATTESTED, with "owner says: ..." as evidence. Owner admits a gap: FAIL.
 If the owner cannot answer, record UNKNOWN. Ask only the questions whose check is in scope (tier, gates).
 
 | ID | Tier | Gate | Question |
@@ -13,12 +13,10 @@ If the owner cannot answer, record UNKNOWN. Ask only the questions whose check i
 | OBS-09 | T1 | - | Who is on call right now, who is the backup, and where are the runbooks? |
 | OBS-10 | T1 | - | When was your last incident, and what changed afterwards? Where is the postmortem? |
 | BILL-07 | T1 | payments | When did you last reconcile metered usage against invoices, and what was the difference? |
-| AI-02 | T1 | AI/LLM | Does a DPA (and a BAA for US health data) exist with every AI model provider you send customer data to? |
 | OPS-06 | T2 | - | Has an external penetration test been done? When, and are findings closed? |
 | OPS-07 | T2 | - | Do you keep a security questionnaire answer set with evidence behind each answer? Where? |
 | OPS-08 | T2 | - | Does a customer require SOC 2? Status of readiness or audit? |
-| OPS-09 | T2 | health data | Is any US patient health data processed? If yes, do you have a BAA with every vendor that touches it? |
+| OPS-09 | T2 | health data | Is any US patient health data processed? If yes, do you have a BAA with every vendor that touches it, including AI model providers? |
 | OPS-10 | T2 | card data | Is PCI scope documented, and which SAQ applies? |
-| OPS-11 | T2 | - | Do you have a signed DPA with every vendor that processes customer data (hosting, CDN, email, cloud, AI)? |
-| OPS-12 | T0 | - | Are all accounts, domains, repos and the cloud root account in the company's name, with MFA on the root? |
+| OPS-11 | T2 | - | Do you have a signed DPA with every vendor that processes customer data (hosting, CDN, email, cloud, AI model providers)? |
 | OPS-13 | T1 | - | Who else can deploy and restore without you? Are credentials in a shared vault? |
