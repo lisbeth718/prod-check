@@ -3,14 +3,15 @@
 Fictional sample. The app, people and numbers are invented. This is an excerpt: 27 rows. A real run lists every in-scope row.
 
 - App: Lumen Invoicing (invoicing SaaS, repo `lumen/app`)
-- Tier: T1
+- Tier: T1 Paying
 - Gates on: accounts, multi-tenant, payments, transactional email, background jobs, API/webhooks, database
-- Gates off: uploads, AI/LLM, multiple locales, health data, card data, self-hosted servers
+- Gates off: uploads, imports, usage billing, URL fetching, impersonation, AI/LLM, multiple locales, health data, card data, self-hosted servers
 - Mode: full (all sections)
 - Stack file used: none, adapted (Node API, managed Postgres, hosted queue)
 - Date: 2026-03-12
 - Auditor: audit agent A
 - Reviewer: separate reviewer agent B
+- Access gaps: no staging access to the edge proxy; consumer repo for mail events not readable
 
 ## Findings
 
@@ -24,7 +25,7 @@ Fictional sample. The app, people and numbers are invented. This is an excerpt: 
 | Backups | BKP-04 | Every app on the instance has backup and drill | T0 | FAIL | `\l` shows 3 databases; backup job covers `lumen` only | Add the other two to the backup job and drill | S |
 | Billing | BILL-01 | Incoming webhook signatures verified | T1 | FAIL | `src/webhooks/payments.ts:19` parses body and trusts `event.type`; unsigned POST created a credit in staging | Verify signature header before parsing | S |
 | Observability | OBS-03 | Cost alerts | T0 | FAIL | Cloud budget alert exists; hosting provider has none | Add a usage alert to the hosting account | S |
-| Database | DB-03 | Migrations reversible | T1 | FAIL | 6 of 14 migrations have no down step (`migrations/009` to `014`) | Write down steps; test up/down/up | M |
+| Database | DB-03 | Migrations versioned, restore tested | T1 | FAIL | Migrations are versioned (`migrations/001` to `014`), but no restore has ever been tested (see BKP-03) | Run all migrations from empty on a scratch DB; tie to the BKP-03 restore drill | S |
 | Operations | OPS-12 | Accounts owned by the company | T0 | FAIL | Registrar record shows the domain under a personal account; owner admits it. Cloud root is the company's, MFA on | Move domain to the company account | S |
 | Authentication | AUTH-05 | Login rate limit on real IP | T1 | UNKNOWN | Limiter exists (`src/auth/limit.ts:9`) but proxy header config not visible; no staging access to the edge | Confirm forwarded header handling at the edge | S |
 | Email | MAIL-03 | Bounce and complaint handling | T0 | UNKNOWN | Events are routed to a queue, but the consumer code is in a repo the auditor cannot read | Provide access or a code excerpt | S |
@@ -36,13 +37,18 @@ Fictional sample. The app, people and numbers are invented. This is an excerpt: 
 | Database | DB-08 | Money as integer minor units | T1 | PASS | `invoices.total_cents bigint` (`migrations/004_invoices.sql:7`); no float math in `src/billing` (grep clean) | | |
 | Database | DB-17 | Database major version supported | T0 | PASS | `SHOW server_version;` = 16.4; supported until 2028-11 | | |
 | Input | WEB-03 | No XSS | T1 | PASS | 1 raw HTML sink at `src/ui/Note.tsx:12`, input sanitized with DOMPurify | | |
-| Email | MAIL-02 | DKIM, aligned SPF, DMARC | T0 | PASS | DKIM verified; return-path domain verified; `_dmarc` is `p=quarantine` | | |
+| Email | MAIL-02 | Sending access, DKIM, aligned SPF, DMARC, bounce rates | T0 | PASS | Production access enabled; DKIM verified; return-path domain verified; `_dmarc` is `p=quarantine`; 30-day bounce 0.8%, complaints 0.02% | | |
 | Deploys | DEP-03 | Tests run before production deploy | T1 | PASS | `.ci/deploy.yml:14` test job is a dependency of deploy; red test blocked a run on 2026-03-02 | | |
-| Deploys | DEP-04 | Rollback used | T1 | PASS | `deploy/rollback.sh` present; deploy log shows a rollback run on 2026-01-14 (`deploy-history.log:212`) | | |
+| Deploys | DEP-04 | Rollback used | T0 | PASS | `deploy/rollback.sh` present; deploy log shows a rollback run on 2026-01-14 (`deploy-history.log:212`) | | |
 | Observability | OBS-01 | External uptime checks | T0 | PASS | Monitor from two external regions hitting `/health`, alerting to the on-call channel | | |
 | Observability | OBS-02 | Error tracking groups errors | T0 | PASS | Tracker DSN in production env; sample issue grouped 212 events | | |
 | Billing | BILL-02 | Idempotency keys on every charge | T1 | PASS | `src/billing/charge.ts:54` passes `idempotencyKey: invoice.id + attempt` | | |
 | Server | SRV-01 | Database not internet-reachable | T0 | N/A | not applicable to this architecture: managed Postgres, no self-hosted servers | | |
+
+## Advisory notes
+
+- DB-01 (advisory): `invoice_notes` has no foreign key to `invoices`; add one when next touching the table.
+- CODE-02 (advisory): `src/db/reports.ts` is 2,300 lines; split by report type.
 
 ## Top 5 fixes
 
