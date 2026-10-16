@@ -31,22 +31,25 @@ Tier (pick the highest that applies):
 - T1 Paying: any of: user accounts, customer data, payments.
 - T2 Enterprise/regulated: SSO requested, security questionnaires, regulated data, or contracts with residency, uptime or accessibility terms. Regulated data = health, financial account, legal, member, union or political data. Ordinary PII (CVs, emails) stays T1.
 - Tier A is advisory: keep the row, never FAIL it, report it under "Advisory notes".
+- Stage says when a T1 fix is due: `invoice` = before the first invoice, `10` = before 10 customers, `100` = before 100 customers. `-` = T0, T2 or advisory.
+- Stage never changes scope: tier and gates decide what is checked. Copy each row's stage into the report.
+- Quick mode = the listed high-risk T0 checks plus every T1 row at stage `invoice`.
 - A row's text may state a lower-tier condition (e.g. "applies at T1 when the API is public"); honor it.
 
 Feature gates (yes or no for each):
-accounts, multi-tenant, payments, usage billing, uploads, imports, transactional email, background jobs, API/webhooks/integrations, AI/LLM, URL fetching, impersonation, multiple locales, health data, card data, database, self-hosted servers.
+accounts, multi-tenant, payments, usage billing, uploads, imports, transactional email, background jobs, API/webhooks/integrations, AI/LLM, URL fetching, impersonation, subscriptions, multiple locales, health data, card data, database, self-hosted servers.
 `multi-tenant` = an org, team or workspace entity where several users share records. Per-user ownership alone is NOT multi-tenant.
 
 A check whose gate is off is N/A. A check above the app tier is N/A, not FAIL.
 Managed setups (e.g. Vercel with Neon or Supabase) have `self-hosted servers` off: mark SRV-01 to SRV-03, SRV-09, SRV-10,
 the BKP-02 `archive_mode` check and the JOB-04 `crontab` check N/A with the reason.
-No `database` means DB-17 to DB-19 and BKP-* are N/A.
+No `database` means DB-17 to DB-19 and BKP-* are N/A. DB-17 is also N/A on managed databases where the provider enforces upgrades.
 N/A reasons: above tier, gate off, or "not applicable to this architecture (state why)".
 Read the repo to answer; ask the owner only for what the repo cannot show. State tier and gates at the top of the report.
 
 ## 2. Pick the mode
 
-- quick (default): run and report only the IDs in `references/quick-profile.md` (about 40 checks vs ~165; advisory rows are skipped).
+- quick (default): run and report only the IDs in `references/quick-profile.md` (59 checks vs 180; advisory rows are skipped).
 - full: every check in scope.
 - Section arguments limit the run to those check files.
 
@@ -100,7 +103,7 @@ If no reviewer can be spawned, write "Reviewer: none" in the header and list the
 
 ## 7. Report
 
-Use `references/report-template.md`. One table: Section, ID, Check, Tier, Status, Evidence, Fix, Effort.
+Use `references/report-template.md`. One table: Section, ID, Check, Tier, Stage, Status, Evidence, Fix, Effort.
 Status is PASS, FAIL, ATTESTED, UNKNOWN or N/A. Advisory (tier A) rows go in an "Advisory notes" list, not the table.
 Order FAIL rows by severity:
 1. data exposure

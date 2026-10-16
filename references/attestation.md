@@ -20,5 +20,6 @@ If the owner cannot answer, record UNKNOWN. Ask only the questions whose check i
 | OPS-09 | T2 | health data | Is any US patient health data processed? If yes, do you have a BAA with every vendor that touches it, including AI model providers? |
 | OPS-10 | T2 | card data | Is PCI scope documented, and which SAQ applies? |
 | OPS-11 | T2 | - | Do you have a signed DPA with every vendor that processes customer data (hosting, CDN, email, cloud, AI model providers)? |
-| OPS-13 | T0 | - | Who else can deploy and restore without you? Is every credential in a vault or otherwise reachable by a second person? Is there a written lost-laptop plan (keys to rotate, sessions to kill, order)? Where? |
-| OPS-15 | T1 | - | Is there a list of single-vendor dependencies (auth, database, hosting, email), what breaks when each is down, and can you export your data from each? Where is it? |
+| OPS-13 | T0 | - | Who else can deploy and restore without you? Is every credential in a vault or otherwise reachable by a second person? |
+| OPS-15 | A | - | Is there a list of single-vendor dependencies (auth, database, hosting, email), what breaks when each is down, and can you export your data from each? Where is it? |
+| OPS-17 | T1 | - | Is there a written lost-laptop plan (keys to rotate, sessions to kill, order)? Where? |

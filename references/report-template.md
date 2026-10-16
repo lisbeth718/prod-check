@@ -20,8 +20,8 @@ Copy this structure. Fill every field. Keep evidence short; put long output in a
 
 ## Findings
 
-| Section | ID | Check | Tier | Status | Evidence | Fix | Effort |
-|---|---|---|---|---|---|---|---|
+| Section | ID | Check | Tier | Stage | Status | Evidence | Fix | Effort |
+|---|---|---|---|---|---|---|---|---|
 
 ## Advisory notes
 
@@ -40,6 +40,7 @@ Copy this structure. Fill every field. Keep evidence short; put long output in a
 
 ## Column rules
 
+- Stage is `invoice`, `10`, `100` or `-`, copied from the check file. It says when the fix is due, not whether the row is in scope.
 - Status is one of PASS, FAIL, ATTESTED, UNKNOWN, N/A.
   - PASS: you verified an artifact or evidence yourself. If a live replay was needed and only code was read, write PASS and add "(code only)" to the evidence.
   - FAIL: the evidence shows it fails, or the owner admits the gap. A row with one FAIL sub-item is FAIL; note any UNKNOWN part in the evidence.
