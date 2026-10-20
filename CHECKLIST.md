@@ -46,7 +46,7 @@ How to verify each item, and what evidence to keep, is in `references/checks/`.
 - [T1 launch] AUTH-12 Email is verified before any costly action (AI, email, SMS, uploads). Stage launch only when signup is public and AI, SMS or email sends are open to new accounts; otherwise stage 10.
 - [T2] AUTH-13 MFA is available to all users, with a recovery path for a lost phone.
 - [T1 launch] AUTH-14 OAuth account linking happens only on a verified email (no automatic link to an unverified address); changing email requires re-verification.
-- [T1 10] AUTH-15 Signup abuse controls: bot challenge, disposable-email block and a per-IP signup limit.
+- [T1 10] AUTH-15 Signup abuse controls: bot challenge, disposable-email block (a maintained blocklist package, applied at signup and at checkout) and a per-IP signup limit.
 - [T1 launch] AUTH-16 The server verifies token signatures (verify, not decode) and server code trusts only a verified user (e.g. Supabase getUser(), not getSession(), on the server).
 - [T1 launch] AUTH-17 Auth emails (verify, reset, magic link) go through a production mail provider, not the auth vendor's rate-limited default SMTP.
 
@@ -171,7 +171,7 @@ How to verify each item, and what evidence to keep, is in `references/checks/`.
 - [T1 launch] BILL-01 Incoming payment webhook signatures are verified.
 - [T1 launch] BILL-02 Idempotency keys are used on every direct charge or refund call; with hosted checkout, refund calls carry keys and event dedupe is verified under BILL-12.
 - [T1 10] BILL-03 Subscriptions, upgrades, downgrades and proration are correct.
-- [T1 10] BILL-04 Failed payments are retried and dunning emails are sent.
+- [T1 10] BILL-04 Failed payments are retried, dunning emails are sent, and the subscription is canceled (access removed) when retries run out.
 - [T2] BILL-05 Refunds, credits and partial refunds work.
 - [T1 launch] BILL-06 Tax obligations for your current customers' countries are known and handled (merchant of record, a tax engine, or a written accountant decision). (attest)
 - [T1 100] (gate: usage billing) BILL-07 Usage metering matches what is billed, to the cent, and is reconciled at least monthly. (attest)
@@ -185,6 +185,8 @@ How to verify each item, and what evidence to keep, is in `references/checks/`.
 - [T1 10] BILL-15 Dispute and chargeback events alert a human, and the dispute rate is watched (card networks and the provider can close accounts at about 1%).
 - [T1 launch] (gate: subscriptions) BILL-16 Customers can cancel in the app without contacting support (auto-renewal laws).
 - [T1 launch] BILL-17 A live-mode webhook endpoint is registered for the production URL, subscribed to every event the handler uses, and signed with the live secret; recent deliveries return 2xx. The provider account is activated with payouts enabled.
+- [T1 10] (gate: free trials) BILL-18 One trial per card: when a trial starts, the card fingerprint is checked against past trials and a repeat card is charged immediately instead. N/A for no-card trials.
+- [A] (gate: free trials) BILL-19 Abandoned free accounts are cleaned up on a schedule, e.g. a weekly job deletes free accounts with a disposable email and zero usage, under a written retention rule.
 
 ## Public API and integrations (gate: API, webhooks or integrations)
 

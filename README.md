@@ -28,7 +28,7 @@ Humans: work through `CHECKLIST.md`. Each line has an ID, a tier and a gate. `re
 
 ```
 /prod-check                      quick audit (default), 68 checks
-/prod-check full                 every check in scope, 187 checks
+/prod-check full                 every check in scope, 189 checks
 /prod-check quick auth billing   only those sections
 /prod-check full 05-database-data-model
 ```
@@ -50,7 +50,7 @@ Each check has a tier, and some sections are gated on a feature.
 
 The auditor checks everything at or below your tier. Anything above is N/A, not FAIL.
 Gates are features you may not have: accounts, multi-tenant, payments, usage billing, uploads, imports, transactional email,
-background jobs, API or webhooks, AI, URL fetching, impersonation, subscriptions, multiple locales, health data, card data, database, self-hosted servers. A gated-off section is N/A.
+background jobs, API or webhooks, AI, URL fetching, impersonation, subscriptions, free trials, multiple locales, health data, card data, database, self-hosted servers. A gated-off section is N/A.
 `multi-tenant` means an org, team or workspace entity where several users share records; per-user ownership alone is not multi-tenant.
 
 Some things only a person can answer (on-call, postmortems, pen tests, who owns the domain).

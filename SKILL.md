@@ -37,7 +37,7 @@ Tier (pick the highest that applies):
 - A row's text may state a lower-tier condition (e.g. "applies at T1 when the API is public"); honor it.
 
 Feature gates (yes or no for each):
-accounts, multi-tenant, payments, usage billing, uploads, imports, transactional email, background jobs, API/webhooks/integrations, AI/LLM, URL fetching, impersonation, subscriptions, multiple locales, health data, card data, database, self-hosted servers.
+accounts, multi-tenant, payments, usage billing, uploads, imports, transactional email, background jobs, API/webhooks/integrations, AI/LLM, URL fetching, impersonation, subscriptions, free trials, multiple locales, health data, card data, database, self-hosted servers.
 `multi-tenant` = an org, team or workspace entity where several users share records. Per-user ownership alone is NOT multi-tenant.
 
 A check whose gate is off is N/A. A check above the app tier is N/A, not FAIL.
